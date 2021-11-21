@@ -1,0 +1,17 @@
+information:
+  name: Joomla Login Panel
+  id: joomla-login-panel
+  description: Some Apache servers have the version on the response header. The OpenSSL version can be also obtained
+  risk: info
+  authors: its0x08
+  tags: joomla, login, login panel
+
+code: |
+  let path = "/administrator"
+  let response = await _MakeQuest_(`{{url}}${path}`)
+
+  if(response.data.indexOf("/administrator/templates/isis/images/joomla.png") != -1 || response.data.indexOf('<meta name="generator" content="Joomla! - Open Source Content Management" />') != -1){
+    Logger.attack_log({{self_info}}, `{{url}}${path}`)
+  }
+
+  resolve()

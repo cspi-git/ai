@@ -1,0 +1,17 @@
+information:
+  name: 3G wireless gateway
+  id: 3g-wireless-gateway
+  description: 3D wireless gateway panel
+  risk: info
+  authors: pussycat0x
+  tags: panel, router, 3d wireless gateway
+
+code: |
+  let path = "/htmlcode/html/indexdefault.asp"
+  let response = await _MakeQuest_(`{{url}}${path}`)
+
+  if(response.data.indexOf("g_i3gState") != -1 && response.data.indexOf("g_sysinfo_sim_state") != -1 && response.data.indexOf("g_iUID") != -1 && response.status == 200){
+    Logger.attack_log({{self_info}}, `{{url}}${path}`)
+  }
+
+  resolve()

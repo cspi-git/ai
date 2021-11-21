@@ -1,0 +1,16 @@
+information:
+  name: ZOHO ManageEngine Desktop
+  id: manageengine-desktop
+  risk: info
+  authors: dhiyaneshDK
+  tags: panel, zoho, manageengine
+
+code: |
+  let path = "/configurations"
+  let response = await _MakeQuest_(`{{url}}${path}`)
+
+  if(response.data.indexOf("<title>ManageEngine Desktop Central 10</title>") != -1 && response.status == 200){
+    Logger.attack_log({{self_info}}, `{{url}}${path}`)
+  }
+
+  resolve()

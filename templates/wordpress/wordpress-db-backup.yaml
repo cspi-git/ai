@@ -1,0 +1,16 @@
+information:
+  name: Wordpress DB Backup
+  id: wordpress-db-bkacup
+  risk: medium
+  authors: dwisiswant0
+  tags: wordpress, backups, backup
+
+code: |
+  let path = "/wp-content/backup-db/"
+  let response = await _MakeQuest_(`{{url}}${path}`)
+
+  if(response.data.indexOf("Index of /") != -1 && response.data.indexOf('.sql\">') == -1 && response.status == 200){
+    Logger.attack_log({{self_info}}, `{{url}}${path}`)
+  }
+
+  resolve()

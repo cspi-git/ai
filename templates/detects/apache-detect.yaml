@@ -1,0 +1,16 @@
+information:
+  name: Apache Detection
+  id: apache-detect
+  description: Some Apache servers have the version on the response header. The OpenSSL version can be also obtained
+  risk: info
+  authors:  philippedelteil
+  tags: apache
+
+code: |
+  let response = await _MakeQuest_("{{url}}")
+
+  if(JSON.stringify(response.headers).indexOf("Apache") != -1){
+    Logger.attack_log({{self_info}}, "{{url}}")
+  }
+
+  resolve()

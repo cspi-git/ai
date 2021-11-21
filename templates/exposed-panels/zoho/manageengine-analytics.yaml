@@ -1,0 +1,16 @@
+information:
+  name: ZOHO ManageEngine Analytics Plus
+  id: manageengine-analytics
+  risk: info
+  authors: dhiyaneshDK
+  tags: panel, zoho, manageengine
+
+code: |
+ let path = "/iam/login"
+ let response = await _MakeQuest_(`{{url}}${path}`)
+
+ if(response.data.indexOf("<title>ManageEngine Analytics Plus</title>") != -1 && response.status == 200){
+    Logger.attack_log({{self_info}}, `{{url}}${path}`)
+ }
+
+ resolve()

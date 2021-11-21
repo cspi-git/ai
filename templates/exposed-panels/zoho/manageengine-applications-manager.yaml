@@ -1,0 +1,16 @@
+information:
+  name: ZOHO ManageEngine Applications Manager
+  id: manageengine-applications-manager
+  risk: info
+  authors: dhiyaneshDK
+  tags: panel, zoho, manageengine
+
+code: |
+  let path = "/index.do"
+  let response = await _MakeQuest_(`{{url}}${path}`)
+
+  if(response.data.indexOf("<title>Applications Manager Login Screen</title>") != -1 && response.status == 200){
+    Logger.attack_log({{self_info}}, `{{url}}${path}`)
+  }
+
+  resolve()

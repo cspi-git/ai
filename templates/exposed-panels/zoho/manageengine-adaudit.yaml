@@ -1,0 +1,15 @@
+information:
+  name: ZOHO ManageEngine ADAudit/ADManager Panel
+  id: manageengine-adaudit
+  risk: info
+  authors: dhiyaneshDK, PR3R00T
+  tags: panel, zoho, manageengine
+
+code: |
+  const response = await _MakeQuest_("{{url}}/authorization.do")
+
+  if(response.data.indexOf("<title>ManageEngine - ADManager Plus</title>") != -1 && response.status == 200){
+    Logger.attack_log({{self_info}}, "{{url}}/authorization.do")
+  }
+
+  resolve()

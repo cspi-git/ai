@@ -1,0 +1,17 @@
+information:
+  name: Wordpress DB Repair Exposed
+  id: wordpress-db-repair
+  description: Discover enabled Wordpress repair page.
+  risk: low
+  authors: _C0wb0y_
+  tags: wordpress, config, fpd
+
+code: |
+  let path = "/wp-admin/maint/repair.php"
+  let response = await _MakeQuest_(`{{url}}${path}`)
+
+  if(response.data.indexOf("<title>WordPress") != -1 && response.data.indexOf("WP_ALLOW_REPAIR") == -1 && response.status == 200){
+    Logger.attack_log({{self_info}}, `{{url}}${path}`)
+  }
+
+  resolve()

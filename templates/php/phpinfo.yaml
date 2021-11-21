@@ -1,0 +1,28 @@
+information:
+  name: PHP - Information disclosure
+  id: phpinfo-files
+  description: Check the website If it disclose It's PHP information
+  risk: low
+  authors: pdteam, daffainfo, meme-lord, dhiyaneshDK
+  tags: php, phpinfo
+
+code: |
+  let parameters = ["/php.php", "/phpinfo.php", "/info.php", "/infophp.php", "/php_info.php", "/test.php", "/i.php", "/asdf.php", "/pinfo.php", "/phpversion.php", "/time.php", "/index.php", "/temp.php", "/old_phpinfo.php", "/infos.php", "/linusadmin-phpinfo.php", "/php-info.php", "/dashboard/phpinfo.php"]
+
+  async function request(i){
+    try{
+      let response = await _MakeQuest_(`{{url}}${parameters[i]}`)
+
+      if(response.data.indexOf("PHP Extension") != -1 || response.data.indexOf("PHP Version") != -1){
+        Logger.attack_log({{self_info}}, `{{url}}${parameters[i]}`)
+      }
+    }catch{}
+
+    if(i == parameters.length-1){
+      resolve()
+    }
+  }
+
+  for( let i = 0; i < parameters.length; i++ ){
+    request(i)
+  }

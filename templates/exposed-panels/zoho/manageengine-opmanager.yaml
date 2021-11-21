@@ -1,0 +1,15 @@
+information:
+  name: ZOHO ManageEngine OpManager
+  id: manageengine-opmanager
+  risk: info
+  authors: dhiyaneshDK
+  tags: panel, zoho, manageengine
+
+code: |
+  let response = await _MakeQuest_("{{url}}")
+
+  if(response.data.indexOf("<h2>OpManager Plus<span>") != -1 && response.status == 200){
+    Logger.attack_log({{self_info}}, "{{url}}")
+  }
+
+  resolve()
